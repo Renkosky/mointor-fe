@@ -18,7 +18,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@skymointor/react": ["../skymointor/packages/react/src"],
+      "@skymointor/core": ["../skymointor/packages/core/src"],
+      "@skymointor/browser": ["../skymointor/packages/browser/src"],
+      "@skymointor/shared": ["../skymointor/packages/shared/src"]
+    },
+    "baseUrl": "./"
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -15,7 +15,7 @@ export default function Projects() {
         setProjects(res?.data)
       }
     })
-  })
+  }, [])
 
   const style = {
     border: '1px solid var(--semi-color-border)',
@@ -26,7 +26,9 @@ export default function Projects() {
   };
   return (
     <section>
-      <Button type='primary' theme='solid' style={{ marginBottom: 10 }}>添加项目</Button>
+      <Button type='primary' theme='solid' style={{ marginBottom: 10 }} onClick={() => {
+        console.log(b);
+      }}>添加项目</Button>
       <List
         grid={{
           gutter: 12,
@@ -34,7 +36,10 @@ export default function Projects() {
         }}
         dataSource={projects}
         renderItem={item => (
-          <List.Item style={style}>
+          <List.Item style={style} onClick={() => {
+            const obj = {}
+            obj.noObj.noField = 'no field'
+          }}>
             <div>
               <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item?.name}</h3>
               <Descriptions

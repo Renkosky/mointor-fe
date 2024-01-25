@@ -12,6 +12,8 @@
   "dependencies": {
     "@douyinfe/semi-icons": "^2.50.1",
     "@douyinfe/semi-ui": "^2.50.1",
+    "@mitojs/browser": "^3.0.1",
+    "@mitojs/react": "^3.0.1",
     "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
