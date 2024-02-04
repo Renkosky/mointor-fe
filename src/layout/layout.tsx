@@ -1,8 +1,9 @@
 import React from 'react';
 import { Avatar, Button, Nav, Layout as SemiLayout } from '@douyinfe/semi-ui';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
-  IconHome, IconHistogram,
+  IconHome,
+  IconApps,
   IconLive,
   IconSemiLogo,
   IconBell,
@@ -11,30 +12,30 @@ import {
 export default function Layout() {
   const { Header, Sider, Content } = SemiLayout;
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  console.log(location, 'location');
+  const activeStyle = {
+    color: 'var(--semi-color-primary)',
+  }
+  const isActived = (path: string) => {
+    return pathname.includes(path) ? activeStyle : {}
+  }
   return (
-    // <SemiLayout className="components-layout-demo">
-    //   <Sider style={{ width: '120px', background: 'var(--semi-color-fill-2)' }}>Sider</Sider>
-    //   <SemiLayout>
-    //     <Header style={commonStyle}>Header</Header>
-    //     <Content><Outlet /></Content>
-    //     <Footer style={commonStyle}>Footer</Footer>
-    //   </SemiLayout>
-    // </SemiLayout>
     <SemiLayout style={{ border: '1px solid var(--semi-color-border)' }}>
       <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
         <Nav
           defaultSelectedKeys={['Home']}
           style={{ maxWidth: 220, height: '100%' }}
           items={[
-            { itemKey: 'Home', text: '首页', icon: <IconHome size="large" /> },
-            { itemKey: 'projects', text: '项目', icon: <IconHistogram size="large" /> },
-            { itemKey: 'document', text: '文档', icon: <IconLive size="large" /> },
+            { itemKey: 'overview', text: <span style={isActived('overview')}>首页</span>, icon: <IconHome size="large" style={isActived('overview')} /> },
+            { itemKey: 'projects', text: <span style={isActived('projects')}>项目</span>, icon: <IconApps size="large" style={isActived('projects')} /> },
+            { itemKey: 'document', text: <span style={isActived('document')}>文档</span>, icon: <IconLive size="large" style={isActived('document')} /> },
             // { itemKey: 'Setting', text: '设置', icon: <IconSetting size="large" /> },
           ]}
           onClick={({ itemKey }) => navigate(`/${itemKey}`)}
           header={{
             logo: <IconSemiLogo style={{ fontSize: 36 }} />,
-            text: 'Semi Design',
+            text: '监控平台',
           }}
           footer={{
             collapseButton: true,

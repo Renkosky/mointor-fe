@@ -1,8 +1,6 @@
 import './App.css'
-import { HashRouter, Route, RouterProvider } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 import { router } from './routes/route'
-import { init as MitoInit } from '@mitojs/browser'
-import { MitoProvider } from '@mitojs/react'
 import { BrowserOptionsFieldsTypes, init } from '@skymointor/browser'
 import { SkyMointorProvider } from '@skymointor/react'
 
