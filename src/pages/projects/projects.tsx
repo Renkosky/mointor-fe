@@ -60,8 +60,8 @@ export default function Projects() {
         dataSource={projects}
         renderItem={item => (
           <List.Item style={style} onClick={() => {
-            // const obj = {}
-            // obj.noObj.noField = 'no field'
+            const obj = {}
+            obj.noObj.noField = 'no field'
           }}>
             <div>
               <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item?.name}</h3>
@@ -86,7 +86,7 @@ export default function Projects() {
         )}
       />
       <Modal
-        title="基本对话框"
+        title="新增项目"
         visible={visible}
         onOk={addProject}
         onCancel={() => setVisible(false)}

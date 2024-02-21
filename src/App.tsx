@@ -11,6 +11,7 @@ function App() {
     maxBreadcrumbs: 100,
     silentConsole: false,
     enableTraceId: true,
+    maxDuplicateCount: 1,
   } as BrowserOptionsFieldsTypes, {})
 
   // const mitoinstance = MitoInit({
