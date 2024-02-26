@@ -60,8 +60,8 @@ export default function Projects() {
         dataSource={projects}
         renderItem={item => (
           <List.Item style={style} onClick={() => {
-            const obj = {}
-            obj.noObj.noField = 'no field'
+            // const obj = {}
+            // obj.noObj.noField = 'no field'
           }}>
             <div>
               <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item?.name}</h3>
