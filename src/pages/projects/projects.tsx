@@ -3,15 +3,28 @@ import React, { useEffect, useRef } from 'react'
 import request from '../../utils/request';
 import { STATUS_CODE } from '../../constant';
 import { FormApi } from '@douyinfe/semi-ui/lib/es/form';
+import { useNavigate } from 'react-router-dom';
 
 export default function Projects() {
   const { Input } = Form
   const [projects, setProjects] = React.useState<{
     name: string, devUrl: string, uatUrl?: string,
     prodUrl?: string
+    id: number
   }[] | []>([])
   const [visible, setVisible] = React.useState(false)
   const api = useRef<FormApi>();
+  const navigate = useNavigate()
+
+  const getProjects = async () => {
+    request.get('/project').then(res => {
+      console.log(res);
+      if (res?.code === STATUS_CODE.SUCCESS) {
+        setProjects(res?.data)
+      }
+    })
+  }
+
 
   const addProject = async () => {
     api.current?.validate().then(async value => {
@@ -24,17 +37,8 @@ export default function Projects() {
         Toast.error(res?.msg)
       }
     })
-
   }
 
-  const getProjects = async () => {
-    request.get('/project').then(res => {
-      console.log(res);
-      if (res?.code === STATUS_CODE.SUCCESS) {
-        setProjects(res?.data)
-      }
-    })
-  }
 
   useEffect(() => {
     getProjects()
@@ -62,6 +66,7 @@ export default function Projects() {
           <List.Item style={style} onClick={() => {
             // const obj = {}
             // obj.noObj.noField = 'no field'
+            navigate(`/projects/detail?id=${item.id}`)
           }}>
             <div>
               <h3 style={{ color: 'var(--semi-color-text-0)', fontWeight: 500 }}>{item?.name}</h3>

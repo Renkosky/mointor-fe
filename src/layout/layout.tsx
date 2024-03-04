@@ -21,7 +21,7 @@ export default function Layout() {
     return pathname.includes(path) ? activeStyle : {}
   }
   return (
-    <SemiLayout style={{ border: '1px solid var(--semi-color-border)' }}>
+    <SemiLayout style={{ border: '1px solid var(--semi-color-border)', height: '100vh' }}>
       <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
         <Nav
           defaultSelectedKeys={['Home']}
