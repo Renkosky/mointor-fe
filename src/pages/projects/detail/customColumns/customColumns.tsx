@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Button, Col, Row, Tag, Tooltip } from "@douyinfe/semi-ui";
-import { BREADCRUMBCATEGORYS } from "../../../../../../skymointor/packages/shared/src/constant";
-import { isEmpty, isObject } from 'lodash'
-import styles from './customColumns.module.scss'
+import { Button, Col, Row, Tag, Tooltip } from '@douyinfe/semi-ui';
+import { isEmpty, isObject } from 'lodash';
+import styles from './customColumns.module.scss';
+import { BREADCRUMBCATEGORYS } from 'src/constant';
 
 interface DesPropsType {
   data: any;
@@ -31,29 +31,29 @@ export enum Severity {
 }
 export function dataToString(data: any) {
   if (isEmpty(data)) {
-    return '无'
+    return '无';
   } else if (isObject(data)) {
-    return JSON.stringify(data)
+    return JSON.stringify(data);
   } else {
-    return data
+    return data;
   }
 }
 
 export function LevelColumn(props: { level: Severity }) {
   switch (props.level) {
     case Severity.Info:
-      return <Tag color="blue">{props.level}</Tag>
+      return <Tag color="blue">{props.level}</Tag>;
     case Severity.Error:
-      return <Tag color="red">{props.level}</Tag>
+      return <Tag color="red">{props.level}</Tag>;
     default:
-      return <Tag>{props.level}</Tag>
+      return <Tag>{props.level}</Tag>;
   }
 }
 export function XhrDescription(props: { row: any }) {
   // const eventInfo = useRecoilValue<Events.IEventSls | any>(atomEventInfo)
-  const { row } = props
-  const { data } = row
-  const { request } = data
+  const { row } = props;
+  const { data } = row;
+  const { request } = data;
   const onClickTraceId = (traceId: string) => {
     // const from_time = moment().subtract(7, 'days').format('YYYY-MM-DD')
     // const client_trace_id = traceId
@@ -70,24 +70,22 @@ export function XhrDescription(props: { row: any }) {
     //   })
     //   .join(';')
     // window.open(`${url};${str}`)
-  }
+  };
   if (row.category !== BREADCRUMBCATEGORYS.EXCEPTION) {
     return (
-      <div >
-        <div >
+      <div>
+        <div>
           <Row className="no-wrap-row" gutter={[0, 6]}>
-            <Col >
-              <span >{request.method}</span>
+            <Col>
+              <span>{request?.method}</span>
             </Col>
             <Col>
-              <a href={request ? request.url : data.url}>
-                {request ? request.url : data.url}
-              </a>
+              <a href={request ? request.url : data.url}>{request ? request.url : data.url}</a>
             </Col>
           </Row>
           <Row gutter={[0, 6]}>
             <Col span={24}>
-              <span >请求参数:</span>
+              <span>请求参数:</span>
               {dataToString(request?.data)}
             </Col>
             <Col span={24}>
@@ -110,14 +108,14 @@ export function XhrDescription(props: { row: any }) {
           </Row>
         </div>
       </div>
-    )
+    );
   }
   return (
     <div className={[styles.xhrError, styles.weight].join(' ')}>Error： Network Error 接口耗时{data.elapsedTime}ms</div>
-  )
+  );
 }
 export function ConsoleDescription(props: DesPropsType) {
-  const { data } = props
+  const { data } = props;
   return (
     <div className={[styles.clg, styles.description].join(' ')}>
       <div className={styles.print}>{data.args.join('')}</div>
@@ -130,14 +128,13 @@ export function ConsoleDescription(props: DesPropsType) {
         <span>{JSON.stringify(data.args)}</span>
       </div>
     </div>
-  )
+  );
 }
 export function ClickDescription(props: DesPropsType) {
-  console.log('ClickDescription', props.data);
-  return <div className={(styles.click, styles.weight)}>{props.data}</div>
+  return <div className={(styles.click, styles.weight)}>{props.data}</div>;
 }
 export function RouteDescription(props: DesPropsType) {
-  const { data } = props
+  const { data } = props;
   return (
     <div className={[styles.route, styles.description].join(' ')}>
       <div>
@@ -155,10 +152,10 @@ export function RouteDescription(props: DesPropsType) {
         </div>
       )}
     </div>
-  )
+  );
 }
 export function VueDescriptiopn(props: DesPropsType) {
-  const { data } = props
+  const { data } = props;
   return (
     <div className={[styles.route, styles.description].join(' ')}>
       <div className={styles.from}>
@@ -170,53 +167,53 @@ export function VueDescriptiopn(props: DesPropsType) {
         {data.message}
       </div>
     </div>
-  )
+  );
 }
 export function UnhandledrejectionDescription(props: DesPropsType) {
-  const { data } = props
-  return <div>{data.message ? `reason:${data.message}` : ''}</div>
+  const { data } = props;
+  return <div>{data.message ? `reason:${data.message}` : ''}</div>;
 }
 
 export function CodeErrorDescription(props: DesPropsType) {
-  const { data } = props
-  const { stack } = data
+  const { data } = props;
+  const { stack } = data;
   return (
     <div>
       <Row gutter={[0, 10]}>错误信息:{data.message}</Row>
       {Array.isArray(stack)
         ? stack.map((item, index) => {
-          return (
-            <Row key={index}>
-              <Col span={8}>
-                <span className={styles.weight}>func:</span>
-                {item.func}
-              </Col>
-              <Col span={16}>
-                <span className={styles.weight}>args:</span>
-                {item.args}
-              </Col>
-              <Col span={8}>
-                <span className={styles.weight}>line:</span>
-                {item.line}
-              </Col>
-              <Col span={16}>
-                <span className={styles.weight}>column:</span>
-                {item.column}
-              </Col>
+            return (
+              <Row key={index}>
+                <Col span={8}>
+                  <span className={styles.weight}>func:</span>
+                  {item.func}
+                </Col>
+                <Col span={16}>
+                  <span className={styles.weight}>args:</span>
+                  {item.args}
+                </Col>
+                <Col span={8}>
+                  <span className={styles.weight}>line:</span>
+                  {item.line}
+                </Col>
+                <Col span={16}>
+                  <span className={styles.weight}>column:</span>
+                  {item.column}
+                </Col>
 
-              <Col span={24}>
-                <span className={styles.weight}>file url:</span>
-                {item.url}
-              </Col>
-            </Row>
-          )
-        })
+                <Col span={24}>
+                  <span className={styles.weight}>file url:</span>
+                  {item.url}
+                </Col>
+              </Row>
+            );
+          })
         : 'Error Stack为空'}
     </div>
-  )
+  );
 }
 export function CustomerDescription(props: DesPropsType) {
-  const { data } = props
+  const { data } = props;
   return (
     <Row>
       <Col>
@@ -224,11 +221,11 @@ export function CustomerDescription(props: DesPropsType) {
         {dataToString(data)}
       </Col>
     </Row>
-  )
+  );
 }
 
 export function ResourceDescription(props: DesPropsType) {
-  const { data } = props
+  const { data } = props;
   return (
     <Row gutter={[0, 6]}>
       <Col span={24}>
@@ -244,5 +241,5 @@ export function ResourceDescription(props: DesPropsType) {
         {data.message}
       </Col>
     </Row>
-  )
+  );
 }

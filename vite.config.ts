@@ -13,6 +13,7 @@ export default defineConfig({
       '@skymointor/browser': path.resolve(__dirname, 'node_modules/@skymointor/browser'),
       '@skymointor/shared': path.resolve(__dirname, 'node_modules/@skymointor/shared'),
       '@skymointor/types': path.resolve(__dirname, 'node_modules/@skymointor/types'),
+      src: path.resolve(__dirname, 'src'),
       // 添加其他需要的别名
     },
   },
