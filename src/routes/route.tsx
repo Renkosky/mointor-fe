@@ -4,6 +4,7 @@ import Overview from "../pages/overview/overview"
 import Projects from "../pages/projects/projects"
 import Documents from "../pages/documents/documents"
 import Detail from "../pages/projects/detail/detail"
+import Login from "src/pages/login/login"
 
 // const routes = [
 //   {
@@ -30,9 +31,13 @@ import Detail from "../pages/projects/detail/detail"
 const routes = [
   {
     path: '/',
+    children: [{ index: true, element: <Login /> },
+    { path: '/login', element: <Login /> }]
+  },
+  {
+    path: '/',
     element: <Layout />,
     children: [
-      { index: true, element: <Overview /> },
       { path: '/overview', element: <Overview />, },
       { path: '/projects', element: <Projects /> },
       { path: '/document', element: <Documents /> }

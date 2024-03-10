@@ -12,6 +12,7 @@ const request = extend({
   timeout: 1000,
   headers: {
     'Content-Type': 'application/json',
+    Authorization: localStorage.getItem('access_token') ? 'Bearer ' + localStorage.getItem('access_token') : '',
   },
 });
 export default request;
