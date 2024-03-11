@@ -22,6 +22,7 @@ export default function Detail() {
   const [data, setData] = React.useState([]);
   const [errorDetail, setErrorDetail] = React.useState<DetailData | null>(null);
   const [loading, setLoading] = React.useState(false);
+  const [filter, setfilter] = React.useState({ resolved: false })
 
   const getReports = (param?: any) => {
     setLoading(true);
@@ -29,7 +30,7 @@ export default function Detail() {
       .post(`/project/report`, {
         data: {
           projectId: Number(location?.search?.split('=')[1]),
-          resolved: false,
+          ...filter,
           ...param,
         },
       })
@@ -37,9 +38,19 @@ export default function Detail() {
         if (res?.code === 0) {
           setData(res.data);
         }
+        setfilter(filter => ({ ...filter, ...param }))
         setLoading(false);
       });
   };
+
+  const changeStat = (param: { id: number, status: boolean }) => {
+    request.post('/report/status', { data: { ...param } }).then(res => {
+      if (res?.code === 0) {
+        getReports()
+      }
+    })
+  }
+
   const columns = [
     {
       title: '错误名称',
@@ -73,13 +84,15 @@ export default function Detail() {
             <Button
               type="primary"
               onClick={() => {
-                instance.log({ message: 'this is message' });
+
                 setErrorDetail(record);
               }}
             >
               查看
             </Button>
-            <Button size="small" style={{ fontSize: 12 }} onClick={() => instance.log({ message: 'this is message' })}>
+            <Button size="small" style={{ fontSize: 12 }} onClick={() => {
+              changeStat({ id: record.id, status: !record.resolved })
+            }}>
               标记为解决
             </Button>
           </div>
@@ -112,8 +125,10 @@ export default function Detail() {
         <Col span={6}>
           <span>错误类型：</span>
           <Select style={{ width: 120 }} onChange={(type) => getReports({ type })} showClear>
-            <Select.Option value={'TypeError'}>TypeError</Select.Option>
-            <Select.Option value={'ResponseError'}>ResponseError</Select.Option>
+            <Select.Option value={'JAVASCRIPT'}>JAVASCRIPT</Select.Option>
+            <Select.Option value={'PROMISE'}>PROMISE</Select.Option>
+            <Select.Option value={'LOG'}>LOG</Select.Option>
+            <Select.Option value={'HTTP'}>HTTP</Select.Option>
             {/* <Select.Option value={'critical'}>critical</Select.Option> */}
           </Select>
         </Col>
