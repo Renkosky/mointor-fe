@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@douyinfe/semi-icons": "^2.50.1",
+    "@douyinfe/semi-illustrations": "^2.54.1",
     "@douyinfe/semi-ui": "^2.50.1",
     "@mitojs/browser": "^3.0.1",
     "@mitojs/react": "^3.0.1",
     "dayjs": "^1.11.10",
+    "echarts": "^5.5.0",
+    "echarts-for-react": "^3.0.2",
     "lodash": "^4.17.21",
     "prettier": "^3.1.1",
     "rc-drawer": "^7.1.0",

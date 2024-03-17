@@ -1,5 +1,5 @@
 import React from 'react';
-import { Avatar, Button, Nav, Layout as SemiLayout } from '@douyinfe/semi-ui';
+import { Avatar, Button, Dropdown, Nav, Layout as SemiLayout } from '@douyinfe/semi-ui';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   IconHome,
@@ -7,7 +7,8 @@ import {
   IconLive,
   IconSemiLogo,
   IconBell,
-  IconHelpCircle
+  IconHelpCircle,
+  IconExit
 } from '@douyinfe/semi-icons';
 export default function Layout() {
   const { Header, Sider, Content } = SemiLayout;
@@ -20,6 +21,13 @@ export default function Layout() {
   const isActived = (path: string) => {
     return pathname.includes(path) ? activeStyle : {}
   }
+
+  const logOut = () => {
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('username')
+    navigate('/login')
+  }
+
   return (
     <SemiLayout style={{ border: '1px solid var(--semi-color-border)', height: '100vh' }}>
       <Sider style={{ backgroundColor: 'var(--semi-color-bg-1)' }}>
@@ -48,7 +56,7 @@ export default function Layout() {
             mode="horizontal"
             footer={
               <>
-                <Button
+                {/* <Button
                   theme="borderless"
                   icon={<IconBell size="large" />}
                   style={{
@@ -63,10 +71,20 @@ export default function Layout() {
                     color: 'var(--semi-color-text-2)',
                     marginRight: '12px',
                   }}
-                />
-                <Avatar color="orange" size="small">
-                  YJ
-                </Avatar>
+                /> */}
+
+                <Dropdown
+                  render={
+                    <Dropdown.Menu>
+                      <Dropdown.Item onClick={logOut}><IconExit />登出</Dropdown.Item>
+                    </Dropdown.Menu>
+                  }
+                >
+                  <Avatar color="orange" size="small">
+                    {localStorage.getItem('username')?.slice(0, 1)}
+                  </Avatar>
+                </Dropdown>
+
               </>
             }
           ></Nav>
